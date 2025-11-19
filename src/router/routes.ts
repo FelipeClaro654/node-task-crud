@@ -1,14 +1,11 @@
-import type { ServerResponse } from "http";
 import type { AppRoutes } from "../types/routes";
-import type { Task } from "../types/task";
 
 const Routes: AppRoutes = {
   "/tasks": {
-    POST: (res: ServerResponse, data?: Task) => {
-      console.log({ data });
+    POST: ({ req, res }) => {
       return res.end("Criar Task");
     },
-    GET: (res: ServerResponse) => {
+    GET: ({ res }) => {
       return res.end("Devolver Tasks");
     },
   },

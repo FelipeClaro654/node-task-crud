@@ -1,20 +1,21 @@
 import Routes from "./routes.ts";
-import type { RouterParams } from "../types/routes";
+import type { HttpMethods, RoutePaths, RouterParams } from "../types/routes";
 
-const Router = ({ url, method, data, res }: RouterParams) => {
-  const route = Routes[url];
+const Router = ({ req, res }: RouterParams) => {
+  const { url, method } = req;
+  const route = Routes[url as RoutePaths];
 
   if (!route) {
     return res.end("Route not found!");
   }
 
-  const handler = route[method];
+  const handler = route[method as HttpMethods];
 
   if (!handler) {
     return res.end("Handler not found!");
   }
 
-  return handler(res, data);
+  return handler({ req, res });
 };
 
 export default Router;
